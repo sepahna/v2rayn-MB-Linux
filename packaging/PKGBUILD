@@ -1,0 +1,47 @@
+# Maintainer: Barani Core
+pkgname=barani-core
+pkgver=7.25.8
+pkgrel=1
+pkgdesc="Barani Core desktop client for Linux"
+arch=('x86_64')
+url="https://github.com/sepahna/v2rayn-MB-Linux"
+license=('GPL-3.0-only')
+depends=(
+  'fontconfig'
+  'freetype2'
+  'libx11'
+  'libxrandr'
+  'libxi'
+  'libxcursor'
+  'libxext'
+  'libice'
+  'libsm'
+  'libgl'
+  'gtk3'
+  'dbus'
+  'ca-certificates'
+  'xdg-utils'
+)
+source=("https://github.com/sepahna/v2rayn-MB-Linux/releases/download/${pkgver}/barani-core-linux-x64.tar.gz")
+sha256sums=('SKIP')
+
+package() {
+  install -d "$pkgdir/opt"
+  cp -a "$srcdir/barani-core" "$pkgdir/opt/barani-core"
+  install -d "$pkgdir/usr/bin"
+  ln -s /opt/barani-core/barani-core "$pkgdir/usr/bin/barani-core"
+  install -Dm644 /dev/stdin "$pkgdir/usr/share/applications/barani-core.desktop" <<'EOF'
+[Desktop Entry]
+Type=Application
+Name=Barani Core
+Comment=Barani Core
+Exec=barani-core
+Icon=barani-core
+Terminal=false
+Categories=Network;
+EOF
+  if [ -f "$pkgdir/opt/barani-core/v2rayN.png" ]; then
+    install -Dm644 "$pkgdir/opt/barani-core/v2rayN.png" "$pkgdir/usr/share/icons/hicolor/256x256/apps/barani-core.png"
+  fi
+  chmod 755 "$pkgdir/opt/barani-core/v2rayN" "$pkgdir/opt/barani-core/barani-core"
+}

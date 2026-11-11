@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Name=Barani Core
+Comment=کلاینت دسکتاپ بارانی برای لینوکس
+Exec=barani-core
+Icon=barani-core
+Terminal=false
+Categories=Network;
+StartupWMClass=v2rayN

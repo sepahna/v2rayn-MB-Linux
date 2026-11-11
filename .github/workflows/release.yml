@@ -1,0 +1,66 @@
+name: Release Linux
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: Release version, for example 7.25.8
+        required: true
+        default: "7.25.8"
+      source_ref:
+        description: Branch or tag in sepahna/v2rayn-MB
+        required: true
+        default: master
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout packaging
+        uses: actions/checkout@v4
+
+      - name: Checkout Barani source
+        uses: actions/checkout@v4
+        with:
+          repository: sepahna/v2rayn-MB
+          ref: ${{ inputs.source_ref }}
+          path: src
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 10.0.x
+
+      - name: Publish desktop client
+        working-directory: src/v2rayN
+        run: >
+          dotnet publish v2rayN.Desktop/v2rayN.Desktop.csproj
+          -c Release -r linux-x64 --self-contained
+          -p:PublishSingleFile=false
+          -o "$GITHUB_WORKSPACE/publish"
+
+      - name: Build tar.gz and deb
+        run: |
+          chmod +x packaging/build-release.sh packaging/barani-core.sh
+          ./packaging/build-release.sh "$GITHUB_WORKSPACE/publish" "${{ inputs.version }}" "$GITHUB_WORKSPACE/dist"
+
+      - name: Publish GitHub release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ inputs.version }}
+          name: Barani Core Linux ${{ inputs.version }}
+          files: |
+            dist/barani-core-linux-x64.tar.gz
+            dist/barani-core_${{ inputs.version }}_amd64.deb
+            packaging/PKGBUILD
+          body: |
+            نسخه لینوکس Barani Core ${{ inputs.version }} برای اوبونتو، دبیان و آرچ.
+
+            - `barani-core_${{ inputs.version }}_amd64.deb` برای اوبونتو، دبیان، مینت و Pop!_OS
+            - `barani-core-linux-x64.tar.gz` برای آرچ، فدورا، اوپن‌سوزه و بقیه توزیع‌ها
+            - `PKGBUILD` برای نصب با makepkg
+
+            راهنمای نصب در README مخزن است.
