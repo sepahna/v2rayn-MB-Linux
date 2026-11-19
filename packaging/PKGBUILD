@@ -1,6 +1,6 @@
 # Maintainer: Barani Core
 pkgname=barani-core
-pkgver=7.25.8
+pkgver=7.25.10
 pkgrel=1
 pkgdesc="Barani Core desktop client for Linux"
 arch=('x86_64')

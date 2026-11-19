@@ -4,9 +4,9 @@ on:
   workflow_dispatch:
     inputs:
       version:
-        description: Release version, for example 7.25.8
+        description: Release version, for example 7.25.10
         required: true
-        default: "7.25.8"
+        default: "7.25.10"
       source_ref:
         description: Branch or tag in sepahna/v2rayn-MB
         required: true

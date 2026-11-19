@@ -16,7 +16,7 @@
 
 ```bash
 sudo apt update
-sudo apt install ./barani-core_7.25.8_amd64.deb
+sudo apt install ./barani-core_7.25.10_amd64.deb
 barani-core
 ```
 
@@ -48,7 +48,7 @@ makepkg -si
 barani-core
 ```
 
-`makepkg` آرشیو نسخهٔ `7.25.8` را دانلود و نصب می‌کند. برای نسخهٔ بعدی، مقدار `pkgver` داخل `PKGBUILD` را عوض کنید.
+`makepkg` آرشیو نسخهٔ `7.25.10` را دانلود و نصب می‌کند. برای نسخهٔ بعدی، مقدار `pkgver` داخل `PKGBUILD` را عوض کنید.
 
 حذف:
 
@@ -61,7 +61,7 @@ sudo pacman -R barani-core
 ```bash
 sudo dnf install fontconfig freetype libX11 libXrandr libXi libXcursor libXext libICE libSM mesa-libGL gtk3 dbus ca-certificates xdg-utils tar
 curl -fL -o barani-core-linux-x64.tar.gz \
-  https://github.com/sepahna/v2rayn-MB-Linux/releases/download/7.25.8/barani-core-linux-x64.tar.gz
+  https://github.com/sepahna/v2rayn-MB-Linux/releases/download/7.25.10/barani-core-linux-x64.tar.gz
 sudo mkdir -p /opt
 sudo tar -C /opt -xzf barani-core-linux-x64.tar.gz
 sudo ln -sf /opt/barani-core/barani-core /usr/local/bin/barani-core
