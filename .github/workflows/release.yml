@@ -28,6 +28,7 @@ jobs:
           repository: sepahna/v2rayn-MB
           ref: ${{ inputs.source_ref }}
           path: src
+          submodules: recursive
 
       - name: Setup .NET
         uses: actions/setup-dotnet@v4
